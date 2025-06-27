@@ -5,7 +5,7 @@ import { sendError } from "../../utils/sendError";
 
 export const borrowRouter = express.Router();
 
-// create borrow
+
 borrowRouter.post("/", async (req: Request, res: Response, next: NextFunction) => {
   const { book: bookId, quantity, dueDate } = req.body;
   try {
@@ -27,6 +27,8 @@ borrowRouter.post("/", async (req: Request, res: Response, next: NextFunction) =
     next(error);
   }
 });
+
+
 
 borrowRouter.get("/", async (req: Request, res: Response) => {
   const summary = await Borrow.aggregate([

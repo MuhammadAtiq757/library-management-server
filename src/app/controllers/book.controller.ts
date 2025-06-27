@@ -4,7 +4,7 @@ import { sendError } from "../../utils/sendError";
 
 export const bookRouter = express.Router();
 
-// create book
+
 bookRouter.post(
   "/",
   async (req: Request, res: Response, next: NextFunction) => {
@@ -22,11 +22,11 @@ bookRouter.post(
   }
 );
 
-// get all books
+
 bookRouter.get("/", async (req: Request, res: Response, next: NextFunction) => {
   const { filter, sortBy, sort, limit } = req.query;
   const query: any = {};
-  
+
   if (filter) {
     query.genre = filter;
   }
@@ -44,14 +44,14 @@ bookRouter.get("/", async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-// get book by id
+
 bookRouter.get(
   "/:bookId",
   async (req: Request, res: Response, next: NextFunction) => {
     const bookId = req.params.bookId;
     try {
       const book = await Book.findById(bookId);
-      if(!book) {
+      if (!book) {
         return sendError(res, "Book not found", null, 404);
       }
       res.status(200).json({
@@ -65,7 +65,6 @@ bookRouter.get(
   }
 );
 
-// update book by Id
 bookRouter.put(
   "/:bookId",
   async (req: Request, res: Response, next: NextFunction) => {
@@ -74,7 +73,7 @@ bookRouter.put(
     try {
       const book = await Book.findByIdAndUpdate(bookId, updatedBookData, {
         new: true,
-        runValidators:true, // this is a new things for me, and its help us to enable validators to validate with schema
+        runValidators: true,
       });
       if (!book) {
         return sendError(res, "Book not found", null, 404);
@@ -91,7 +90,7 @@ bookRouter.put(
   }
 );
 
-// delete book by id
+
 bookRouter.delete(
   "/:bookId",
   async (req: Request, res: Response, next: NextFunction) => {
