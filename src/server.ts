@@ -1,20 +1,22 @@
-import mongoose from "mongoose";
-import {Server} from "http";
-import app from "./app";
 
-let server : Server;
+import { Server } from 'http';
+import mongoose from 'mongoose';
+import app from './app';
 
-async function main(){
+let server: Server;
+const PORT: number = 5000;
+
+async function main() {
     try {
-        await mongoose.connect(`${process.env.DB_URI}`);
-        console.log("Database connection successful");
-        server = app.listen(process.env.PORT, () =>{
-            console.log(
-              `Library Management Server is running on port ${process.env.PORT}`
-            );
-        })
+        await mongoose.connect('mongodb+srv://757mohammadatiq:757mohammadatiq@cluster0.iyiex3d.mongodb.net/advanced-note-app?retryWrites=true&w=majority&appName=Cluster0');
+
+        console.log('✅ Connected to MongoDB with Mongoose');
+
+        server = app.listen(PORT, () => {
+            console.log(` Server is running on port ${PORT}`);
+        });
     } catch (error) {
-        console.log("Error in main function:", error);
+        console.error(' Error starting the server:', error);
     }
 }
 
